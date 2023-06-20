@@ -66,8 +66,7 @@ class ApiCalls {
           context.read<EmergenciaProvider>().setEmergencias(
               emergencias: jsonResponse["usuario"]["comunidad"]["emergencias"]);
           // jsonDecode(value.toString())["comunidad"]["comunidad_id"])
-          
-          
+
           // // CUANDO el usuario se logea se subcribe a la comunidad
           // await PushNotificacionService.subscribeCommunity(
           //     jsonResponse["usuario"]["comunidad"]["comunidad_id"]);
@@ -210,15 +209,39 @@ class ApiCalls {
       final json = jsonEncode(usuario);
       final response = await put(url, headers: headers, body: json);
       final statusCode = response.statusCode;
-      final body = response.body;
-      // print(body);
-
-      // actualizar el provider del usuario (ya que los datos se cambiaron)
-
+      final body = jsonDecode(response.body);
+      ;
+      // actualizamos el provider con los nuevos datos del usuario
+      context.read<UsuarioProvider>().updateDataUser(user: body);
       return body;
     } catch (e) {
-      return false;
       print(e.toString());
+      return -1;
+    }
+  }
+
+  Future<Object> postActualizarContraseaUsuario(
+      BuildContext context, var usuario, String contrasenaNueva) async {
+    try {
+      final url = Uri.parse('$api/user/actualizarContrasena/$contrasenaNueva');
+      final headers = {"Content-type": "application/json"};
+
+      final json = jsonEncode(usuario);
+      final response = await post(url, headers: headers, body: json);
+
+      // actualizamos el provider con los nuevos datos del usuario
+      if (response.body.length != 0) { // solo si no regresa null
+        final body = jsonDecode(response.body);
+        context.read<UsuarioProvider>().updateDataUser(user: body);
+      }
+      // print(response.statusCode);
+      // print(response.body.length);
+      // print("-------");
+      // response.body.length -> cero cuando regresa un null
+      return response.body.length;
+    } catch (e) {
+      print(e.toString());
+      return -1;
     }
   }
 

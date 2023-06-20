@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:practica1/pages/ActualizarUsuarioContrasena.dart';
 import 'package:practica1/pages/Chat.dart';
 import 'package:practica1/pages/ComunidadInfo.dart';
 import 'package:practica1/pages/Dispositivos.dart';
@@ -219,6 +220,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
             '/comunidadInfo': ((context) => const ComunidadInfo()),
             '/editarUsuarioInfo': ((context) => const EditarUsuarioInfo()),
             '/recuperarContrasena': ((context) => const RecuperarContreasena()),
+            '/actualizarContrasena': ((context) => const ActualizarUsuarioContrasena()),
             // '/emergencias': ((context) => const Emergencias()),
             // '/dispositivos': ((context) => const Dispositivos()),
             // '/gestionUsuarios': ((context) => const GestionUsuarios()),

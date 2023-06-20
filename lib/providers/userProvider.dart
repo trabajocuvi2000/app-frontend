@@ -36,6 +36,13 @@ class UsuarioProvider with ChangeNotifier {
     notifyListeners();
   }
 
+   Future<void> updateDataUser({required user}) async {
+    _currentUser["usuario"] = user;
+    print("--------------------- Provider data user actualizado correctamente");
+    // actualizar las variables y estan disponibles en los GETs
+    notifyListeners();
+  }
+
   // empesando a logearse
   Future<void> loginStart() async {
     _isLogin = false;
